@@ -13,6 +13,10 @@ COPY build.sh build.sh
 RUN apt-get update &&\
 apt-get install nano
 
-RUN bash ./build.sh
-ENV CC /usr/local/portland/bin/compilers/pgcc
-ENV F77 /usr/local/portland/bin/compilers/pgfortran
+RUN bash /dependencies/nvhpc_2021_219_Linux_x86_64_cuda_11.4/install
+
+
+ENV NVARCH "${uname -s}_${uname -m}"
+ENV NVCOMPILERS /opt/nvidia/hpc_sdk
+ENV MANPATH $MANPATH:$NVCOMPILERS/$NVARCH/21.9/compilers/man
+ENV PATH $NVCOMPILERS/$NVARCH/21.9/compilers/bin:$PATH
